@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+!.env.example
+*.log
+*.joblib
+*.pkl
+ONE/the-one-master/target/
+ONE/the-one-master/logs/
+ONE/the-one-master/reports/
+.DS_Store
+Thumbs.db

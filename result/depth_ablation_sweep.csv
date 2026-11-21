@@ -1,0 +1,12 @@
+kind,config,loso_auc,model_MB,loso_auc_no_buffer,delta
+depth,max_depth=None,0.8261,4907.8,,
+depth,max_depth=16,0.8482,404.5,,
+depth,max_depth=12,0.8407,105.1,,
+ablation_d16,attack_adaptive_attack,0.727,,0.7137,0.0132
+ablation_d16,attack_adaptive_attack_boost,0.8109,,0.7954,0.0154
+ablation_d16,attack_blackhole,0.932,,0.9165,0.0155
+ablation_d16,attack_flooding,0.8414,,0.8237,0.0177
+ablation_d16,attack_grayhole,0.9157,,0.903,0.0127
+ablation_d16,attack_selective_forwarding,0.7596,,0.7399,0.0197
+ablation_d16,attack_selfish,0.9511,,0.9477,0.0035
+ablation_d16,OVERALL,0.8482,,0.8337,0.0145

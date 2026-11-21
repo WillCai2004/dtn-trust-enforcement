@@ -1,0 +1,11 @@
+feature,attack_adaptive_attack,attack_adaptive_attack_boost,attack_blackhole,attack_flooding,attack_grayhole,attack_selective_forwarding,attack_selfish,appearances,dtn_native
+buf_bytes_avg,1.0,1.0,1.0,2.0,1.0,1.0,3.0,7,False
+buf_bytes_max,2.0,2.0,2.0,3.0,2.0,2.0,5.0,7,False
+contact_time,3.0,3.0,3.0,4.0,3.0,3.0,,6,True
+drop_total,4.0,4.0,4.0,5.0,4.0,4.0,,6,False
+contacts,5.0,,,,,5.0,,2,True
+rx_as_relay,,5.0,,,,,4.0,2,True
+rx_unique,,,5.0,,5.0,,,2,False
+rx_as_source,,,,1.0,,,,1,True
+tx_attempt,,,,,,,2.0,1,False
+tx_denied,,,,,,,1.0,1,False

@@ -1,0 +1,126 @@
+#
+# Audit #2b: transiently impaired honest nodes over a blackhole background.
+# 40 pedestrians + 32 cars + 8 impaired-honest cars + 10+10 blackhole (100 hosts)
+# Group3 (h, addresses 72..79) drops relays during [3600, 5400) then recovers.
+#
+
+Scenario.name = attack_impaired_honest
+Scenario.simulateConnections = true
+Scenario.updateInterval = 0.1
+Scenario.endTime = 7200
+
+## Interfaces (same as baseline/flooding)
+btInterface.type = SimpleBroadcastInterface
+btInterface.transmitSpeed = 500k
+btInterface.transmitRange = 100
+
+highspeedInterface.type = SimpleBroadcastInterface
+highspeedInterface.transmitSpeed = 500k
+highspeedInterface.transmitRange = 100
+
+## 5 groups
+Scenario.nrofHostGroups = 5
+
+## Common group settings
+Group.movementModel = ShortestPathMapBasedMovement
+Group.router = InstrumentedProphetRouter
+Group.bufferSize = 5M
+Group.waitTime = 0, 120
+Group.nrofInterfaces = 1
+Group.interface1 = btInterface
+Group.speed = 0.5, 1.5
+Group.msgTtl = 3600
+
+## Group1 pedestrians (40) -> addresses 0..39
+Group1.groupID = p
+Group1.nrofHosts = 40
+
+## Group2 cars (32) -> addresses 40..71
+Group2.groupID = c
+Group2.nrofHosts = 32
+Group2.okMaps = 1
+Group2.speed = 2.7, 13.9
+
+## Group3 impaired honest cars (8) -> addresses 72..79
+Group3.groupID = h
+Group3.nrofHosts = 8
+Group3.okMaps = 1
+Group3.speed = 2.7, 13.9
+Group3.router = InstrumentedImpairedHonestRouter
+
+## Group4 malicious pedestrians (10) -> addresses 80..89
+Group4.groupID = pm
+Group4.nrofHosts = 10
+Group4.router = InstrumentedBlackholeRouter
+
+## Group5 malicious cars (10) -> addresses 90..99
+Group5.groupID = cm
+Group5.nrofHosts = 10
+Group5.okMaps = 1
+Group5.speed = 2.7, 13.9
+Group5.router = InstrumentedBlackholeRouter
+
+
+## Impairment episode: exactly six 300-s enforcement windows mid-run.
+## The window grid starts at host creation (warmup -1000), so boundaries
+## fall at t = 200 mod 300; 3500 and 5300 are on the grid.
+InstrumentedImpairedHonestRouter.impairStart = 3500
+InstrumentedImpairedHonestRouter.impairEnd = 5300
+InstrumentedImpairedHonestRouter.impairDropProb = 1.0
+
+
+## Message creation (normal traffic only)
+Events.nrof = 1
+
+Events1.class = MessageEventGenerator
+Events1.interval = 25,35
+Events1.size = 500k,1M
+Events1.hosts = 0,100
+Events1.prefix = M
+
+
+## Movement model settings
+MovementModel.rngSeed = 1
+MovementModel.worldSize = 4500, 3400
+MovementModel.warmup = 1000
+
+## Map based movement settings
+MapBasedMovement.nrofMapFiles = 4
+MapBasedMovement.mapFile1 = data/roads.wkt
+MapBasedMovement.mapFile2 = data/main_roads.wkt
+MapBasedMovement.mapFile3 = data/pedestrian_paths.wkt
+MapBasedMovement.mapFile4 = data/shops.wkt
+
+
+## Reports
+Report.nrofReports = 2
+Report.warmup = 0
+Report.reportDir = reports/attack_impaired_honest/
+Report.report1 = MessageStatsReport
+Report.report2 = DeliveredMessagesReport
+
+
+## Router defaults
+ProphetRouter.secondsInTimeUnit = 30
+SprayAndWaitRouter.nrofCopies = 6
+SprayAndWaitRouter.binaryMode = true
+
+## Optimization
+Optimization.cellSizeMult = 5
+Optimization.randomizeUpdateOrder = true
+
+## GUI
+GUI.UnderlayImage.fileName = data/helsinki_underlay.png
+GUI.UnderlayImage.offset = 64, 20
+GUI.UnderlayImage.scale = 4.75
+GUI.UnderlayImage.rotate = -0.015
+GUI.EventLogPanel.nrofEvents = 100
+
+
+## Instrumented logging (shared namespace)
+InstrumentedProphetRouter.windowSize = 300
+InstrumentedProphetRouter.logDir = logs/attack_impaired_honest
+InstrumentedProphetRouter.localWeight = 1.0
+InstrumentedProphetRouter.ratingFusionInterval = 60
+InstrumentedProphetRouter.receivedCleanupInterval = 120
+InstrumentedProphetRouter.receivedRatingTtl = 600

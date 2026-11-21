@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this code or the accompanying results, please cite the paper below."
+type: software
+title: "Behavior-Based Trust Enforcement for Routing Attack Mitigation in Vehicular Delay-Tolerant Networks"
+authors:
+  - family-names: Cai
+    given-names: Zhuochao
+  - family-names: Ozmen
+    given-names: Muslum Ozgur
+preferred-citation:
+  type: conference-paper
+  title: "Behavior-Based Trust Enforcement for Routing Attack Mitigation in Vehicular Delay-Tolerant Networks"
+  authors:
+    - family-names: Cai
+      given-names: Zhuochao
+    - family-names: Ozmen
+      given-names: Muslum Ozgur
+  year: 2026
+  collection-title: "SmartSP 2026"
